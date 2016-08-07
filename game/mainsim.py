@@ -14,12 +14,12 @@ class GameBoard(object):
         self.screen = pyglet.window.Window(fullscreen=True)
 
         #music!!
-        self.audio = pyglet.media.Player()
-        self.audio.queue(resource.bgm) 
+        #self.audio = pyglet.media.Player()
+        #self.audio.queue(resource.bgm) 
         # keep playing for as long as the app is running (or you tell it to stop):
         #self.audio.eos_action = pyglet.media.SourceGroup.loop
-        self.audio.play()
-        print(self.audio.playing)
+        #self.audio.play()
+        #print(self.audio.playing)
 
         #Handlers
         self.screen.push_handlers(self.on_draw)

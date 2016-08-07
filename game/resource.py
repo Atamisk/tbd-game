@@ -25,7 +25,7 @@ player_img_rev = pyglet.resource.image('player_reverse.png')
 player_idle_rev = center_img(player_img_rev.get_region(540,227,11,35))
 player_walk_rev = center_img(player_img_rev.get_region(521,227,15,35))
 
-bgm = pyglet.resource.media('bgm.mp3')
+#bgm = pyglet.resource.media('bgm.mp3')
 
 
 
