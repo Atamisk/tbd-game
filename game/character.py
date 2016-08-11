@@ -3,7 +3,7 @@ from game import resource
 
 
 class Character(pyglet.sprite.Sprite):
-    def __init__(self,image_right = [], image_left = [], image_list = [], x_bounds = [100,600], y_bounds = [100,400], *args, **kwargs):
+    def __init__(self,image_right = [], image_left = [], image_list = [], *args, **kwargs):
         # Construct a sprite with the right image and initial position. 
         super(Character, self).__init__(*args,**kwargs)
         self.scale=2
@@ -13,9 +13,7 @@ class Character(pyglet.sprite.Sprite):
         self.vel_x = 100
         self.vel_y = 100
 
-        self.x_bounds = x_bounds #low and high boundary for travel in the X direction.
-        self.y_bounds = y_bounds #low and high boundary for travel in the Y direction. 
-        
+       
         self.animate_timer = 0
         self.animate_max_time = 0.5
         self.animation_index = 0
@@ -40,10 +38,7 @@ class Character(pyglet.sprite.Sprite):
             self.animate_timer = 0 #update image immediately. 
         
         #move player
-        if self.x > self.x_bounds[0]:
-            self.x -= self.vel_x * dt
-            return False
-        return True
+        self.x -= self.vel_x * dt
 
     
     def move_right(self,dt):
@@ -57,27 +52,18 @@ class Character(pyglet.sprite.Sprite):
             self.animate_timer = 0 #update image immediately. 
         
         #move player
-        if self.x < self.x_bounds[1]:
-            self.x += self.vel_x * dt
-            return False
-        return True
+        self.x += self.vel_x * dt
 
     def move_up(self,dt):
         """
         move player up. Return false if movement occurs. 
         Return state typically used to move background. 
         """
-        if self.y < self.y_bounds[1]:
-            self.y += self.vel_y * dt
-            return False
-        return True
+        self.y += self.vel_y * dt
 
     def move_down(self,dt):
         """
         move player down. Return false if movement occurs. 
         Return state typically used to move background. 
         """
-        if self.y > self.y_bounds[0]:
-            self.y -= self.vel_y * dt
-            return False
-        return True
+        self.y -= self.vel_y * dt

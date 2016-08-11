@@ -1,4 +1,5 @@
 import pyglet
+from pyglet.gl import *
 from game import resource
 
 
@@ -12,29 +13,5 @@ class Background(pyglet.sprite.Sprite):
 
         self.vel_x = 100
         self.vel_y = 100
-  
-    def move_left(self,dt):
-        """
-        Move the background canvas to the left. May need to add tiled loading at some point. 
-        """
-        self.x -= self.vel_x * dt
-     
 
-    def move_right(self,dt):
-        """
-        Move the background canvas to the right. May need to add tiled loading at some point. 
-        """
-        self.x += self.vel_x * dt
-
-    def move_up(self,dt):
-        """
-        Move the background canvas up. May need to add tiled loading at some point. 
-        """
-        self.y += self.vel_y * dt
-
-    def move_down(self,dt):
-        """
-        Move the background canvas up. May need to add tiled loading at some point. 
-        """
-        self.y -= self.vel_y * dt
 

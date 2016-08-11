@@ -1,6 +1,7 @@
 import pyglet, random, math
 pyglet.options['audio'] = ('pulse')
 from pyglet.window import key
+from pyglet.gl import *
 from game import resource, player, background
 
 class GameBoard(object):
@@ -24,15 +25,16 @@ class GameBoard(object):
         #Handlers
         self.screen.push_handlers(self.on_draw)
         self.screen.push_handlers(self.keys)
-        pyglet.clock.schedule_interval(self.update,1/180.0)
+        pyglet.clock.schedule_interval(self.update,1/300.0)
         
         #Custom entities
+        self.background = background.Background(batch=self.main_batch, group=self.bg_group)
         player_x=self.screen.width/2
         player_y=self.screen.height/2
-        player_x_bounds=[self.screen.width*0.375,self.screen.width*0.625]
-        player_y_bounds=[self.screen.height*.375,self.screen.height*0.625]
+        player_x_bounds=[self.screen.width/2,self.background.width - self.screen.width/2]
+        player_y_bounds=[self.screen.height/2,self.background.height - self.screen.height/2]
         self.player = player.Player(batch=self.main_batch, group=self.fg_group, x=player_x, y=player_y  ,x_bounds=player_x_bounds, y_bounds=player_y_bounds)
-        self.background = background.Background(batch=self.main_batch, group=self.bg_group)
+
         
     def on_draw(self):
         self.screen.clear()
@@ -41,25 +43,26 @@ class GameBoard(object):
     def update(self,dt):
         self.player.update(dt)
         
-        move_grid_right = False
-        move_grid_left = False
-        move_grid_up = False
-        move_grid_down = False
+        trans_right = False
+        trans_left = False
+        trans_up = False
+        trans_down = False
         if self.keys[key.LEFT]:
-            move_grid_right = self.player.move_left(dt)
+            trans_left = self.player.move_left(dt)
         if self.keys[key.RIGHT]:
-            move_grid_left = self.player.move_right(dt)
+            trans_right = self.player.move_right(dt)
         if self.keys[key.UP]:
-            move_grid_down = self.player.move_up(dt)
+            trans_up = self.player.move_up(dt)
         if self.keys[key.DOWN]:
-            move_grid_up = self.player.move_down(dt)
+            trans_down = self.player.move_down(dt)
 
-        
-        if move_grid_left:
-            self.background.move_left(dt)
-        if move_grid_right:
-            self.background.move_right(dt)
-        if move_grid_up:
-            self.background.move_up(dt)
-        if move_grid_down:
-            self.background.move_down(dt)
+        if trans_left:
+            glTranslatef(100*dt,0.0,0.0)
+        if trans_right:
+            glTranslatef(-100*dt,0.0,0.0)
+        if trans_down:
+            glTranslatef(0.0,100*dt,0.0)
+        if trans_up:
+            glTranslatef(0.0,-100*dt,0.0)
+
+
