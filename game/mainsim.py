@@ -28,17 +28,24 @@ class GameBoard(object):
         pyglet.clock.schedule_interval(self.update,1/300.0)
         
         #Custom entities
-        self.background = background.Background(img=resource.bg, batch=self.main_batch, group=self.bg_group)
-        player_x=self.screen.width/2
-        player_y=self.screen.height/2
-        player_x_bounds=[self.screen.width/2,self.background.width - self.screen.width/2]
-        player_y_bounds=[self.screen.height/2,self.background.height - self.screen.height/2]
-        self.player = player.Player(batch=self.main_batch, group=self.fg_group, x=player_x, y=player_y  ,x_bounds=player_x_bounds, y_bounds=player_y_bounds)
+        self.loadlevel()
 
         
     def on_draw(self):
         self.screen.clear()
         self.main_batch.draw()
+
+    def loadlevel(self):
+        data=open('res/lvl1.dat')
+        bg_x,bg_y = [int(x) for x in data.readline().split(',')]
+        player_x = self.screen.width/2
+        player_y = self.screen.height/2
+        bg_x = player_x + bg_x*2
+        bg_y = player_y + bg_y*2
+        self.background = background.Background(x=bg_x, y=bg_y, img=resource.bg, batch=self.main_batch, group=self.bg_group)
+        player_x_bounds=[self.screen.width/2,self.background.width - self.screen.width/2]
+        player_y_bounds=[self.screen.height/2,self.background.height - self.screen.height/2]
+        self.player = player.Player(batch=self.main_batch, group=self.fg_group, x=player_x, y=player_y  ,x_bounds=player_x_bounds, y_bounds=player_y_bounds)
 
     def update(self,dt):
         self.player.update(dt)
