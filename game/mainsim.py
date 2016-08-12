@@ -28,7 +28,7 @@ class GameBoard(object):
         pyglet.clock.schedule_interval(self.update,1/300.0)
         
         #Custom entities
-        self.background = background.Background(batch=self.main_batch, group=self.bg_group)
+        self.background = background.Background(img=resource.bg, batch=self.main_batch, group=self.bg_group)
         player_x=self.screen.width/2
         player_y=self.screen.height/2
         player_x_bounds=[self.screen.width/2,self.background.width - self.screen.width/2]

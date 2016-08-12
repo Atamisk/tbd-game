@@ -16,7 +16,7 @@ def center_img(image):
     return image
 
 
-bg = pyglet.resource.image('bg.png')
+bg = pyglet.resource.image('bg-01.png')
 player_img = pyglet.resource.image('player.png')
 player_idle = center_img(player_img.get_region(249,227,11,35))
 player_walk = center_img(player_img.get_region(264,227,15,35))
